@@ -284,7 +284,7 @@ Add an entry in your `services.yaml`:
 
 ### URL examples
 
-- LAN host: `http://192.168.88.105:8787/stats`
+- LAN host: `http://192.168.1.10:8787/stats`
 - Same host (localhost binding): `http://127.0.0.1:8787/stats`
 - Docker-to-Docker (no exposed port): `http://manyfold-stats:8787/stats` (requires Homepage on the same Docker network)
 
