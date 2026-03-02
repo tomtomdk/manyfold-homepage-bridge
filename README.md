@@ -179,7 +179,7 @@ services:
       PGHOST: postgres-server
       PGPORT: "5432"
       PGDATABASE: manyfold
-      PGUSER: driller8541
+      PGUSER: pguser
       PGPASSWORD: "${POSTGRES_PASSWORD}"
 
       # Cache results for 10 seconds
@@ -227,7 +227,7 @@ services:
       PGHOST: postgres-server
       PGPORT: "5432"
       PGDATABASE: manyfold
-      PGUSER: driller8541
+      PGUSER: pguser
       PGPASSWORD: "${POSTGRES_PASSWORD}"
       CACHE_TTL_MS: "10000"
       PORT: "8787"
@@ -350,7 +350,7 @@ services:
       PGHOST: postgres-server
       PGPORT: "5432"
       PGDATABASE: manyfold
-      PGUSER: driller8541
+      PGUSER: pguser
       PGPASSWORD: "${POSTGRES_PASSWORD}"
     depends_on:
       - postgres-server
