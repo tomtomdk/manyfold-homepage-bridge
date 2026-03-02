@@ -1,6 +1,6 @@
 # Manyfold Homepage Bridge (Postgres Stats)
 
-A small “stats bridge” for **Manyfold** that exposes simple JSON metrics so they can be displayed in **[gethomepage/homepage](https://github.com/gethomepage/homepage)** (or any dashboard that can fetch JSON).
+A small “stats bridge” for **[Manyfold](https://manyfold.app)** that exposes simple JSON metrics so they can be displayed in **[gethomepage/homepage](https://github.com/gethomepage/homepage)** (or any dashboard that can fetch JSON).
 
 Some Manyfold deployments don’t expose the expected HTTP API routes (even if Swagger/OpenAPI docs are reachable), or you may simply want a lightweight way to get totals without dealing with OAuth/scopes or API route exposure. This bridge avoids those issues by querying **Manyfold’s PostgreSQL database** directly and returning a minimal, dashboard-friendly payload.
 
