@@ -1,6 +1,6 @@
-# Manyfold Homepage Bridge (Postgres Stats)
+# Manyfold Homepage Bridge
 
-A small “stats bridge” for **[Manyfold](https://manyfold.app)** that exposes simple JSON metrics so they can be displayed in **[gethomepage/homepage](https://github.com/gethomepage/homepage)** (or any dashboard that can fetch JSON).
+A small read-only stats bridge for **[Manyfold](https://manyfold.app)** that exposes dashboard-friendly JSON metrics for **[gethomepage/homepage](https://github.com/gethomepage/homepage)** or any other tool that can fetch JSON.
 
 Some Manyfold deployments don’t expose the expected HTTP API routes (even if Swagger/OpenAPI docs are reachable), or you may simply want a lightweight way to get totals without dealing with OAuth/scopes or API route exposure. This bridge avoids those issues by querying **Manyfold’s PostgreSQL database** directly and returning a minimal, dashboard-friendly payload.
 
@@ -27,7 +27,8 @@ Some Manyfold deployments don’t expose the expected HTTP API routes (even if S
 
 ## Features
 
-- ✅ One endpoint: `GET /stats`
+- ✅ Dashboard-ready stats endpoint: `GET /stats`
+- ✅ Health check endpoint: `GET /healthz`
 - ✅ Returns totals for:
   - Models
   - Collections
@@ -39,6 +40,7 @@ Some Manyfold deployments don’t expose the expected HTTP API routes (even if S
 - ✅ In-memory caching (default **10 seconds**) to reduce DB load
 - ✅ Works great in Docker Compose networks
 - ✅ Ideal for Homepage `customapi` widget
+- ✅ No Manyfold API token or OAuth setup required
 
 ---
 
@@ -78,7 +80,7 @@ Example response:
 - `cached` is `true` if the response came from the in-memory cache (within the TTL window).
 - All other values are integer totals.
 
-### `GET /healthz` (optional)
+### `GET /healthz`
 
 A simple DB connectivity check. Useful for health checks and uptime monitoring.
 
@@ -145,13 +147,19 @@ You can tune caching with:
 
 If you already run Manyfold with Postgres in Docker Compose, you can add this bridge as another service on the same network.
 
-After starting it, test:
+After starting it, verify the bridge can reach Postgres:
+
+```bash
+curl -sS http://<bridge-host>:8787/healthz
+```
+
+Then fetch the stats payload:
 
 ```bash
 curl -sS http://<bridge-host>:8787/stats | jq
 ```
 
-Then point Homepage at the same URL.
+Point Homepage at the same `/stats` URL.
 
 ---
 
@@ -393,6 +401,8 @@ postgresql://user:password@host:5432/manyfold
 
 ## Security / hardening
 
+The bridge does not include authentication or authorization. Treat it as an internal helper service and keep it private to your host, LAN, or Docker network.
+
 ### Bind only to localhost (recommended when possible)
 
 If Homepage runs on the **same host**, don’t expose the bridge to your LAN:
@@ -490,4 +500,4 @@ Normal within the TTL window. Adjust with `CACHE_TTL_MS`.
 
 ## License
 
-Add a license file to the repo (MIT is a common choice for small utilities).
+MIT. See [LICENSE](LICENSE).

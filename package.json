@@ -1,9 +1,15 @@
 {
   "name": "manyfold-stats",
   "version": "1.0.0",
+  "description": "Read-only Postgres stats bridge for Manyfold dashboards.",
   "private": true,
+  "license": "MIT",
   "type": "module",
   "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tomtomdk/manyfold-homepage-bridge.git"
+  },
   "scripts": {
     "start": "node server.js"
   },
